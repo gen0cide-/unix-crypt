@@ -4,13 +4,15 @@
 
 unix-crypt creates and checks passwords that you'd normally find in an /etc/shadow file on your UNIX box.
 
-It's written entirely in Ruby and only requires the 'digest' library that comes with Ruby.
+It's written entirely in Ruby and has no external dependencies.
 
-It handles
+It handles:
 * DES passwords (the standard 13 character password with a 2 character salt)
 * MD5 passwords (starting with $1$)
 * SHA256 passwords (starting with $5$)
 * SHA512 passwords (starting with $6$)
+
+This library is compatible with Ruby 1.8.7 and above.  Tested on Ruby 2.0.0p0.
 
 == HOW TO USE
 
@@ -24,7 +26,10 @@ Or you can generate a new hash, given a password and salt:
   >> UnixCrypt::SHA256.build("Hello world!", "saltstring")
   => "$5$saltstring$5B8vYYiY.CVt1RlTTf8KbXBH3hsxY/GNooZaBBGWEc5"
 
-unix-crypt doesn't generate salts itself - you can use your favourite random number generator to do that.
+If a salt is not specified, one will be generated using random data:
+
+  >> UnixCrypt::SHA256.build("Hello world!")
+  => "$5$v.fjb6lucDCZKjcf$90gzpr9HYo0eAeaN8rubElJdUUOcVYjTnGePBRvCgt1"
 
 == LICENSE
 
